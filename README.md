@@ -1,0 +1,2 @@
+#TheMovieDB
+This is a simple webpage that shows a list of Trending Movies of the week or Trending Movies of today with each title, rating and overview. It is powered by the themoviedb.org API and a HTML5UP Multiverse template

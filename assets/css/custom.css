@@ -1,0 +1,56 @@
+/* Style the header: fixed position (always stay at the top) */
+/* .header {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    background-color: #f1f1f1;
+  } */
+  
+  /* The progress container (grey background) */
+  .progress-container {
+    width: 100%;
+    height: 8px;
+    background: #ccc;
+  }
+  
+  /* The progress bar (scroll indicator) */
+  .progress-bar {
+    height: 8px;
+    background: #34a58e;
+    width: 0%;
+  }
+
+
+  .checked {
+    color: orange;
+  }
+
+
+.pagination{
+    margin-right: 5%;
+}
+
+  /* Pagination links */
+.pagination a {
+    color: white;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+  }
+  
+  /* Style the active/current link */
+  .pagination a.active {
+    background-color: #34a58e;
+    background: #34a58e;
+    color: white;
+  }
+  
+  /* Add a grey background color on mouse-over */
+  .pagination a:hover:not(.active) {background-color: #ddd;}
+
+  .title{
+    padding-left: 5%;
+  }
+
