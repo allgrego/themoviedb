@@ -4,6 +4,9 @@
  * @author Gregorio Alvarez <allgrego14@gmail.com>
  */
 
+require('./components/Pagination.php');
+require('./components/Rating.php');
+
 $cred_ini = parse_ini_file('./library/credentials.ini');
 
 $apikey = $cred_ini['apikey'];
@@ -37,6 +40,7 @@ curl_close($curl);
 $moviesResponse = json_decode($movieslist);
 // cURL end
 
+$lastpage = $moviesResponse->total_pages;
 $movies = $moviesResponse->results;
 
 ?>
@@ -65,19 +69,7 @@ $movies = $moviesResponse->results;
 							<div class="progress-bar" id="myBar"></div>
 						</div>
 						
-						<div class="pagination">
-										<?php
-										if($current_page>1){
-											echo '<a href="./week.php?page=1">...</a>';
-											echo '<a href="./week.php?page='.($current_page-1).'">&laquo;</a>';
-											echo '<a href="./week.php?page='.($current_page-1).'">'.($current_page-1).'</a>';
-										}	
-											echo '<a href="./week.php?page='.($current_page).'" class="active">'.($current_page).'</a>';
-											echo '<a href="./week.php?page='.($current_page+1).'">'.($current_page+1).'</a>';
-											echo '<a href="./week.php?page='.($current_page+1).'">&raquo;</a>';
-
-										?>
-						</div>
+						<?php pagination('./week.php',$current_page,$lastpage);?>
 						<h1 class="title"><a href=""><strong>TRENDING MOVIES</strong> OF THE WEEK</a></h1>
 						
 						<nav>

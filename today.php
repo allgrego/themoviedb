@@ -4,6 +4,9 @@
  * @author Gregorio Alvarez <allgrego14@gmail.com>
  */
 
+require('./components/Pagination.php');
+require('./components/Rating.php');
+
 $cred_ini = parse_ini_file('./library/credentials.ini');
 
 $apikey = $cred_ini['apikey'];
@@ -35,7 +38,10 @@ curl_close($curl);
 $moviesResponse = json_decode($movieslist);
 // cURL end
 
+// Result parameters
 $movies = $moviesResponse->results;
+$lastpage= $moviesResponse->total_pages;
+$current_page = $moviesResponse->page;
 
 ?>
 <!DOCTYPE HTML>
@@ -61,19 +67,7 @@ $movies = $moviesResponse->results;
 						<div class="progress-container">
 							<div class="progress-bar" id="myBar"></div>
 						</div>
-						<div class="pagination">
-							<?php
-							if($current_page>1){
-								echo '<a href="./today.php?page=1">...</a>';
-								echo '<a href="./today.php?page='.($current_page-1).'">&laquo;</a>';
-								echo '<a href="./today.php?page='.($current_page-1).'">'.($current_page-1).'</a>';
-							}	
-								echo '<a href="./today.php?page='.($current_page).'" class="active">'.($current_page).'</a>';
-								echo '<a href="./today.php?page='.($current_page+1).'">'.($current_page+1).'</a>';
-								echo '<a href="./today.php?page='.($current_page+1).'">&raquo;</a>';
-
-							?>
-						</div>
+						<?php pagination('./today.php',$current_page,$lastpage);?>
 						<h1 class="title"><a href=""><strong>TRENDING MOVIES</strong> OF TODAY</a></h1>
 						
 						<nav>
@@ -100,15 +94,7 @@ $movies = $moviesResponse->results;
 							<article class="thumb">
 								<a href="<?php echo $posterpath; ?>" class="image"><img src="<?php echo $backdroppath;?>" alt="" /></a>
 								<h2><?php echo $title ?></h2>
-								<div id="rating">
-								<?php
-									echo '<span><strong>Rating: '.($vote_average/2).' / 5 </strong></span>';
-									for($i=0;$i<5;$i++){
-										echo ($i<((int)$vote_average/2))?'<span class="fa fa-star checked"></span>':'<span class="fa fa-star"></span>';
-
-									}
-								?>
-								</div>
+								<?php rating($vote_average); ?>
 								<p>Release date: <?php echo $release_date ?></p>
 								<p><?php echo $overview ?></p>
 							</article>
